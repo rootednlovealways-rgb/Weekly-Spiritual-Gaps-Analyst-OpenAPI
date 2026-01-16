@@ -1,26 +1,71 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
-  title: Google Sheets Writer Batch
+  title: Weekly Spiritual Gaps Sheets Writer
   version: 1.0.0
 servers:
   - url: https://sheets.googleapis.com
+
 paths:
-  /v4/spreadsheets/{spreadsheetId}:batchUpdate:
+  /v4/spreadsheets/1gPaXcMzkLq8mVW-E20Oiscsn00oEG-wnROGDIf44Wtw/values/Gaps!A:I:append:
     post:
-      operationId: batchUpdate
-      summary: Batch update spreadsheet
+      operationId: appendGapsRows
+      summary: Append rows to Gaps tab
       parameters:
-        - name: spreadsheetId
-          in: path
+        - name: valueInputOption
+          in: query
           required: true
           schema:
             type: string
+            enum: [RAW, USER_ENTERED]
+        - name: insertDataOption
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [INSERT_ROWS, OVERWRITE]
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
+              properties:
+                values:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+              required: [values]
       responses:
         "200":
           description: OK
+
+  /v4/spreadsheets/1gPaXcMzkLq8mVW-E20Oiscsn00oEG-wnROGDIf44Wtw/values/Sources!A:H:append:
+    post:
+      operationId: appendSourcesRows
+      summary: Append rows to Sources tab
+      parameters:
+        - name: valueInputOption
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [RAW, USER_ENTERED]
+        - name: insertDataOption
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [INSERT_ROWS, OVERWRITE]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                values:
+                  type: array
+                  items:
+                    type: array
