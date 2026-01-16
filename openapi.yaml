@@ -69,3 +69,79 @@ paths:
                   type: array
                   items:
                     type: array
+                    items:
+                      type: string
+              required: [values]
+      responses:
+        "200":
+          description: OK
+
+  /v4/spreadsheets/1gPaXcMzkLq8mVW-E20Oiscsn00oEG-wnROGDIf44Wtw/values/Steps!A:F:append:
+    post:
+      operationId: appendStepsRows
+      summary: Append rows to Steps tab
+      parameters:
+        - name: valueInputOption
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [RAW, USER_ENTERED]
+        - name: insertDataOption
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [INSERT_ROWS, OVERWRITE]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                values:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+              required: [values]
+      responses:
+        "200":
+          description: OK
+
+  /v4/spreadsheets/1gPaXcMzkLq8mVW-E20Oiscsn00oEG-wnROGDIf44Wtw/values/Platform%20Pack!A:E:append:
+    post:
+      operationId: appendPlatformPackRows
+      summary: Append rows to Platform Pack tab
+      parameters:
+        - name: valueInputOption
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [RAW, USER_ENTERED]
+        - name: insertDataOption
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [INSERT_ROWS, OVERWRITE]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                values:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+              required: [values]
+      responses:
+        "200":
+          description: OK
