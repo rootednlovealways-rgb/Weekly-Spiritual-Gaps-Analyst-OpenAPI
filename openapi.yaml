@@ -1,0 +1,26 @@
+openapi: 3.0.3
+info:
+  title: Google Sheets Writer Batch
+  version: 1.0.0
+servers:
+  - url: https://sheets.googleapis.com
+paths:
+  /v4/spreadsheets/{spreadsheetId}:batchUpdate:
+    post:
+      operationId: batchUpdate
+      summary: Batch update spreadsheet
+      parameters:
+        - name: spreadsheetId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: OK
