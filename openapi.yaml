@@ -6,26 +6,56 @@ servers:
   - url: https://sheets.googleapis.com
 
 paths:
-  /v4/spreadsheets/1gPaXcMzkLq8mVW-E20Oiscsn00oEG-wnROGDIf44Wtw/values/Gaps!A1:I1:
+  /v4/spreadsheets/{spreadsheetId}/values/{range}:
     get:
-      operationId: getGapsHeader
-      summary: Read header row from Gaps tab
+      operationId: getValues
+      summary: Read a range from a sheet
       parameters:
+        - name: spreadsheetId
+          in: path
+          required: true
+          schema:
+            type: string
+            default: 1gPaXcMzkLq8mVW-E20Oiscsn00oEG-wnROGDIf44Wtw
+        - name: range
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Example: Gaps!A1:I1
         - name: majorDimension
           in: query
           required: false
           schema:
             type: string
             enum: [ROWS, COLUMNS]
+        - name: valueRenderOption
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [FORMATTED_VALUE, UNFORMATTED_VALUE, FORMULA]
       responses:
         "200":
           description: OK
 
-  /v4/spreadsheets/1gPaXcMzkLq8mVW-E20Oiscsn00oEG-wnROGDIf44Wtw/values/Gaps!A:I:append:
+  /v4/spreadsheets/{spreadsheetId}/values/{range}:append:
     post:
-      operationId: appendGapsRows
-      summary: Append rows to Gaps tab
+      operationId: appendRows
+      summary: Append rows to a sheet range
       parameters:
+        - name: spreadsheetId
+          in: path
+          required: true
+          schema:
+            type: string
+            default: 1gPaXcMzkLq8mVW-E20Oiscsn00oEG-wnROGDIf44Wtw
+        - name: range
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Example: Gaps!A:I
         - name: valueInputOption
           in: query
           required: true
@@ -34,4 +64,27 @@ paths:
             enum: [RAW, USER_ENTERED]
         - name: insertDataOption
           in: query
-          required
+          required: false
+          schema:
+            type: string
+            enum: [INSERT_ROWS, OVERWRITE]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [values]
+              properties:
+                majorDimension:
+                  type: string
+                  enum: [ROWS]
+                values:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: string
+      responses:
+        "200":
+          description: OK
